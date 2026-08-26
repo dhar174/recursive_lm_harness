@@ -1,0 +1,19 @@
+{
+  "mem0ry4ai": {
+    "enabled": false,
+    "PreInvocation": [
+      {
+        "type": "command",
+        "command": "python3 scripts/run_mem0ry4ai_hook.py pre_invocation",
+        "timeout": 30
+      }
+    ],
+    "Stop": [
+      {
+        "type": "command",
+        "command": "python3 scripts/run_mem0ry4ai_hook.py stop",
+        "timeout": 30
+      }
+    ]
+  }
+}

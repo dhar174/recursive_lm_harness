@@ -1,0 +1,22 @@
+{
+  "mcpServers": {
+    "aas-core": {
+      "args": [
+        "exec",
+        "--yes",
+        "--ignore-scripts",
+        "--package=agentic-awesome-skills@15.14.0",
+        "aas-mcp"
+      ],
+      "command": "npm"
+    },
+    "archcore": {
+      "args": [
+        "mcp",
+        "--project",
+        "."
+      ],
+      "command": "archcore"
+    }
+  }
+}
