@@ -92,16 +92,17 @@ def main() -> int:
     resolved_hook_path = hook_path.resolve()
 
     if not resolved_hook_path.is_file():
-        print(f"hook not found: {resolved_hook_path}", file=sys.stderr)
-        return 1
+        # Graceful degradation: inform without failing the lifecycle hook execution
+        print(f"[mem0ry4ai-hook] Hook not found: {resolved_hook_path} (skipping)", file=sys.stderr)
+        return 0
 
     if not _is_within_root(resolved_hook_path, home):
-        print(f"hook is outside the home directory: {resolved_hook_path}", file=sys.stderr)
-        return 1
+        print(f"[mem0ry4ai-hook] Warning: Hook is outside the home directory: {resolved_hook_path} (skipping)", file=sys.stderr)
+        return 0
 
     if not _has_safe_permissions_chain(resolved_hook_path, home):
-        print(f"insecure hook permissions: {resolved_hook_path}", file=sys.stderr)
-        return 1
+        print(f"[mem0ry4ai-hook] Warning: Insecure hook permissions: {resolved_hook_path} (skipping)", file=sys.stderr)
+        return 0
 
     completed = subprocess.run(
         [sys.executable, str(resolved_hook_path)],
@@ -109,7 +110,7 @@ def main() -> int:
         env=_hook_environment(),
     )
     if completed.returncode != 0:
-        print(f"hook exited with status {completed.returncode}: {resolved_hook_path}", file=sys.stderr)
+        print(f"[mem0ry4ai-hook] Hook exited with non-zero status {completed.returncode}: {resolved_hook_path}", file=sys.stderr)
     return completed.returncode
 
 

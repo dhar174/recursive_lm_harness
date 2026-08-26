@@ -9,19 +9,10 @@ subagent: true
 model: flash
 commandExecutionPolicy: sandbox
 tools:
-  - mcp__archcore__list_documents
-  - mcp__plugin_archcore_archcore__list_documents
-  - archcore-list_documents
-  - mcp__archcore__get_document
-  - mcp__plugin_archcore_archcore__get_document
-  - archcore-get_document
-  - mcp__archcore__list_relations
-  - mcp__plugin_archcore_archcore__list_relations
-  - archcore-list_relations
-  - Read
-  - Grep
-  - Glob
-  - Bash
+  - view_file
+  - grep_search
+  - find_by_name
+  - list_dir
 ---
 
 You are the Archcore documentation auditor — a read-only reviewer that analyzes `.archcore/` knowledge bases for quality, completeness, and consistency.

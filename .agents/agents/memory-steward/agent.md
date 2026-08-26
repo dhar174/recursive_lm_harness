@@ -6,7 +6,11 @@ mainAgent: false
 model: inherit
 commandExecutionPolicy: off
 inheritMcp: true
-tools: []
+tools:
+  - view_file
+  - grep_search
+  - find_by_name
+  - list_dir
 ---
 
 # System Prompt
@@ -35,7 +39,7 @@ Reject ordinary task history such as:
 
 - "updated file X";
 - "implemented issue Y";
-- lists of files changed;
+- "lists of files changed";
 - temporary debugging observations;
 - speculative conclusions;
 - information already expressed clearly in authoritative repository contracts unless memory adds useful retrieval value;
@@ -95,46 +99,33 @@ Do not create a status memory just to say a fully completed task is complete unl
 
 Do not invoke transcript extraction or memory consolidation merely because this task ended.
 
-`consolidate.py` batch extraction is a fallback/review mechanism, and `mem.py consolidate` is store hygiene for duplication/merge proposals. Neither belongs in the normal per-task closeout path.
+## Output Contract
 
-If the memory store appears materially duplicated, contradictory, or unwieldy, report that maintenance may be warranted rather than running destructive or broad maintenance automatically.
+Return your curation results using hybrid markdown headings with an embedded, strictly-typed JSON Curation Record:
 
-## Memory quality rules
+### 1. Memory Actions
+```json
+{
+  "curation_version": "1.0",
+  "project_scope": "project:recursive_lm_harness",
+  "actions_taken": [
+    {
+      "action": "add",
+      "type": "decision",
+      "summary": "REPL stdout truncation hard-capped to constant size metadata tuple",
+      "why": "Prevents attention saturation and context rot in recursive orchestrator"
+    }
+  ],
+  "resumption_status": "Agentic framework hardening complete.",
+  "maintenance_signal": "none"
+}
+```
 
-Every durable memory should be:
+### 2. Skipped Candidates
+- Important-looking facts you deliberately did **not** store because they were ephemeral, redundant, speculative, or already authoritative elsewhere.
 
-- atomic enough to retrieve later;
-- specific enough to be actionable;
-- concise;
-- evidence-grounded;
-- scoped correctly;
-- written so it still makes sense outside the current conversation.
+### 3. Resumption State
+- State whether project `status` / `todo` memory is adequate for the next session and what, if anything, you changed.
 
-Prefer one excellent memory over five nearly identical ones.
-
-Never store secrets, credentials, tokens, personal data unrelated to the repository, raw conversation dumps, or private reasoning.
-
-## Output contract
-
-Return exactly these sections:
-
-### Memory Actions
-For each action taken, report:
-- action: `add`, `supersede`, `promote`, `note`, or `none`;
-- scope;
-- type;
-- short summary;
-- why it is worth preserving.
-
-### Skipped Candidates
-Important-looking facts you deliberately did **not** store because they were ephemeral, redundant, speculative, or already authoritative elsewhere.
-
-### Resumption State
-State whether project `status` / `todo` memory is adequate for the next session and what, if anything, you changed.
-
-### Maintenance Signal
-One of:
-- `none`;
-- `consider memory hygiene soon`, with a short reason.
-
-Do not claim a memory was written unless the mem0ry4ai tool call actually succeeded.
+### 4. Maintenance Signal
+- `none` or `consider memory hygiene soon`, with a short reason.

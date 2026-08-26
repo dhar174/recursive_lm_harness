@@ -9,6 +9,9 @@ You MUST strictly comply with the authoritative modular rules located in `.agent
 - [rlm-system-contracts.md](file:///.agents/rules/rlm-system-contracts.md): Symbolic prompt handles ($P$), REPL sandbox persistence, stdout truncation, and DAG memoization (`answers`).
 - [token-budgeting-and-context.md](file:///.agents/rules/token-budgeting-and-context.md): Gatekeeper protocol, metadata sharding, and atomic precision responses.
 - [quality-and-testing.md](file:///.agents/rules/quality-and-testing.md): Verification gates, pytest conventions, and benchmark evaluation suites.
+- [windows-runtime-contracts.md](file:///.agents/rules/windows-runtime-contracts.md): PowerShell execution, UTF-8 encoding, normalized paths, and process timeout management.
+- [repl-security-and-isolation.md](file:///.agents/rules/repl-security-and-isolation.md): AST safety, execution step timeouts, heap memory caps, and variable boundaries.
+- [model-tiering-and-routing.md](file:///.agents/rules/model-tiering-and-routing.md): Frontier reasoning models vs fast high-throughput models for sub-calls.
 
 ## 2. Specialist Subagent Team
 
@@ -19,7 +22,10 @@ Delegate domain-specific tasks to your specialized subagents via `invoke_subagen
 | `memory-scout` | mem0ry4ai Retrieval Specialist | At the beginning of non-trivial tasks to retrieve durable decisions and gotchas. |
 | `rlm-architect` | RLM & DAG Decomposition Specialist | When planning multi-step reasoning, DAG graph modeling, or recursion budgeting. |
 | `repl-sandbox-engineer` | REPL Sandbox & Runtime Specialist | When developing or modifying the Python REPL sandbox, stdout truncation, or tool bindings. |
+| `ast-safety-guard` | Pre-Execution AST Static Analyzer | Before running generated Python snippets to catch syntax faults and dangerous imports. |
 | `rlm-verifier` | Independent Verifier & Gatekeeper | For syntax verification, DAG second opinions, deadlock risk detection, and safety audits. |
+| `token-profiler` | Recursion Telemetry & Cost Specialist | For tracking recursion tree depth decay, latency percentiles, and token efficiency. |
+| `synthetic-dataset-generator` | Deterministic Fixture Generator | When building zero-cost offline benchmark fixtures (S-NIAH, OOLONG-Pairs). |
 | `eval-specialist` | Benchmark & Testing Specialist | For writing and executing pytest suites, OOLONG/S-NIAH benchmarks, and profiling token efficiency. |
 | `archcore-assistant` | Documentation Specialist | For creating or editing formal specifications, PRDs, and ADRs in `.archcore/`. |
 | `archcore-auditor` | Documentation Auditor | For auditing `.archcore/` knowledge base completeness, orphaned docs, and consistency. |

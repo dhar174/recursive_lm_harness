@@ -38,3 +38,11 @@ This ensures subsequent turns do not drag forward redundant conversational histo
 If a task lacks critical inputs (e.g. missing target dataset, undefined recursion limit, ambiguous file path):
 - Do NOT guess or emit speculative code.
 - Immediately ask **one concise, targeted clarifying question** to unblock execution.
+
+## 5. Recursive Token Budget Allocation
+
+When spawning recursive child loops via `rlm_query`:
+- **Depth Decay Factor**: Enforce an exponential token budget decay across recursive depth $d$:
+  $$B(d) = B_0 \cdot \gamma^d \quad (\text{where } \gamma = 0.7, \; d \le D_{max} = 5)$$
+- **Leaf Node Hard Cap**: Leaf sub-queries ($d = D_{max}$) must not spawn further recursive loops and must terminate via `llm_query` or direct REPL computation.
+- **Fan-Out Budget**: Maximum of 20 concurrent sub-calls per DAG layer.

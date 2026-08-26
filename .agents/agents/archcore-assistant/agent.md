@@ -10,33 +10,10 @@ subagent: true
 model: flash
 commandExecutionPolicy: sandbox
 tools:
-  - mcp__archcore__list_documents
-  - mcp__plugin_archcore_archcore__list_documents
-  - archcore-list_documents
-  - mcp__archcore__get_document
-  - mcp__plugin_archcore_archcore__get_document
-  - archcore-get_document
-  - mcp__archcore__create_document
-  - mcp__plugin_archcore_archcore__create_document
-  - archcore-create_document
-  - mcp__archcore__update_document
-  - mcp__plugin_archcore_archcore__update_document
-  - archcore-update_document
-  - mcp__archcore__remove_document
-  - mcp__plugin_archcore_archcore__remove_document
-  - archcore-remove_document
-  - mcp__archcore__add_relation
-  - mcp__plugin_archcore_archcore__add_relation
-  - archcore-add_relation
-  - mcp__archcore__remove_relation
-  - mcp__plugin_archcore_archcore__remove_relation
-  - archcore-remove_relation
-  - mcp__archcore__list_relations
-  - mcp__plugin_archcore_archcore__list_relations
-  - archcore-list_relations
-  - Read
-  - Grep
-  - Glob
+  - view_file
+  - grep_search
+  - find_by_name
+  - list_dir
 ---
 
 You are the Archcore documentation assistant — an expert in structured project documentation using the Archcore system. You help users create, manage, and maintain `.archcore/` knowledge bases.

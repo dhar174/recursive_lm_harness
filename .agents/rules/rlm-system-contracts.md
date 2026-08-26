@@ -16,8 +16,16 @@ This document defines the authoritative technical contracts for Recursive Langua
 ## 3. Mandatory Stdout Truncation Strategy
 
 - **Attention Saturation Prevention**: The REPL must never echo full execution output to the coordinator context window.
-- **Constant-Size Feedback**: Stdout returns must be truncated to constant-size metadata (e.g. character count, line count, first 200 characters, exit code).
-- **Programmatic Inspection**: If an agent needs deeper output inspection, it must write code to slice or search the variable within the REPL.
+- **Constant-Size Feedback Tuple**: Stdout returns are strictly truncated to constant-size metadata:
+  $$\text{Feedback} = \langle \text{char\_count}, \text{line\_count}, \text{head}_{100}, \text{tail}_{100}, \text{exit\_code} \rangle$$
+- **Truncated Output Formatting**:
+  ```text
+  [STDOUT TRUNCATED | chars: 84210 | lines: 1240 | exit: 0]
+  HEAD: import json\nresults = ...
+  ... [84010 chars omitted] ...
+  TAIL: answers['node_1'] = results\nprint('done')
+  ```
+- **Programmatic Inspection**: If an agent needs deeper output inspection, it must write code to slice or search the variable within the REPL rather than printing raw tokens.
 
 ## 4. Layer-by-Layer DAG Decomposition
 
@@ -37,5 +45,8 @@ This document defines the authoritative technical contracts for Recursive Langua
 
 ## 6. Deadlock & Token Starvation Safeguards
 
-- **Reasoning Horizon Buffer**: Ensure reasoning/thinking tokens do not exhaust the output limit before Python code or termination tags are emitted.
-- **Fallback Traps**: If code generation encounters a syntax error or exception, the loop must catch the exception into a state variable rather than crashing the REPL process.
+- **Reasoning Horizon Buffer**: Ensure reasoning/thinking tokens do not exhaust the output limit before Python code or termination tags are emitted. System prompts must enforce a $\ge 500$ token reservation for final action tags.
+- **Fallback Traps & State Recovery**: If code generation encounters a syntax error or runtime exception:
+  * Catch the exception into `state["last_error"]` and return standard metadata.
+  * Never terminate the REPL environment abruptly.
+  * Allow the root model to inspect `last_error` and emit corrective code.

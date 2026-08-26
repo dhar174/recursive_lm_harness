@@ -22,6 +22,9 @@
     "python-packaging",
     "recursive-context-pruning-token-budgeting",
     "skill-scanner",
-    "windows-shell-reliability"
+    "windows-shell-reliability",
+    "rlm-repl-sandbox-engineering",
+    "dag-decomposition-patterns",
+    "synthetic-benchmarking-harness"
   ]
 }

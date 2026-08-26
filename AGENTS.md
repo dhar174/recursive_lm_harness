@@ -13,6 +13,9 @@ recursive_lm_harness/
 │   │   ├── rlm-architect/    # DAG decomposition & recursion modeling specialist
 │   │   ├── repl-sandbox-engineer/ # Python REPL sandbox & tool runtime specialist
 │   │   ├── rlm-verifier/     # Syntax checking & deadlock prevention specialist
+│   │   ├── ast-safety-guard/ # Pre-execution Python AST static analyzer
+│   │   ├── token-profiler/   # Recursion telemetry & cost optimization specialist
+│   │   ├── synthetic-dataset-generator/ # Deterministic S-NIAH / OOLONG fixture generator
 │   │   ├── eval-specialist/  # Pytest & OOLONG/S-NIAH benchmark specialist
 │   │   ├── archcore-assistant/ # Structured documentation creation specialist
 │   │   └── archcore-auditor/ # Documentation health & consistency auditor
@@ -20,7 +23,11 @@ recursive_lm_harness/
 │   │   ├── team-orchestration.md
 │   │   ├── rlm-system-contracts.md
 │   │   ├── token-budgeting-and-context.md
-│   │   └── quality-and-testing.md
+│   │   ├── quality-and-testing.md
+│   │   ├── windows-runtime-contracts.md
+│   │   ├── repl-security-and-isolation.md
+│   │   └── model-tiering-and-routing.md
+│   ├── skills/               # Custom & bundled Antigravity skills
 │   ├── hooks.json            # Lifecycle hooks (mem0ry4ai pre-invocation / stop)
 │   └── mcp_config.json       # MCP server configuration (archcore, aas-core)
 ├── scripts/                  # Operational scripts & hook runners
